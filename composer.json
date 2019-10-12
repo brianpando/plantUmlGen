@@ -1,7 +1,7 @@
 {
     "name": "brianpando/plantumlgen",
     "description": "package for code generate by plantUml tool",
-    "license": "Apache Commos",
+    "license": "proprietary",
     "authors": [
         {
             "name": "Brian",
