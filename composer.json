@@ -1,0 +1,13 @@
+{
+    "name": "brianpando/plantumlgen",
+    "description": "package for code generate by plantUml tool",
+    "license": "Apache Commos",
+    "authors": [
+        {
+            "name": "Brian",
+            "email": "unasbrian@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
