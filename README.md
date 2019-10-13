@@ -6,7 +6,7 @@
 composer install brianpando/plantumlgen
 ```
 # How to Use
-you need have the Plantuml file (**plantuml.txt**) in root project, this file must be contains the class diagram with a namespace models. For learn how to write a class diagram please visit http://plantuml.com/es/class-diagram.
+you need have the Plantuml plain file (**plantuml.pu**) in root project, this file must be contains the class diagram with a namespace models. For learn how to write a class diagram please visit http://plantuml.com/es/class-diagram.
 
 you can write your diagram using online editor https://www.planttext.com.
 
@@ -48,10 +48,14 @@ this create a migration file in you migrations folder with the name `[yyy-mm-dd]
 
  :pushpin: if you need, this package get the plantuml.jar who create a png diagram file, for use it, you must be in root project and execute:
 ```
-java -jar vendor/briandpando/plantumlgen/plantuml.jar plantuml.txt
+java -jar vendor/briandpando/plantumlgen/plantuml.jar plantuml.pu
 ```
 this create a png file of diagram class.
 
+# If you are using Visual Studio Code
+Exist a extension for plantUML please Launch VS Code Quick Open (Ctrl + P) and type `ext install plantuml`, then install PlantUml ext. if you are using the local file plantuml.jar please you must have installed Java and Graphviz, for generate preview screen in VS. for example in Mac `brew install graphviz`.
+
+Then you 
 
 # Next
 In next versions the package will generate another layers of your code using the class or package diagram from PlantUML.
