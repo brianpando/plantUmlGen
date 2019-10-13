@@ -31,7 +31,21 @@ models.Store "1" o--"*" models.Book
 
 @enduml
 ```
-if you need, this package get the plantuml.jar who create a png diagram file, for use it, you must be in root project and execute:
+Now, you can create the models or the migration file using the new commands:
+
+### for models
+```
+php artisan plant:models
+```
+This create a models folder in your folder app/, then create each class like a model eloquent including the relationship. please be careful linking with the right relationship in your diagram.
+
+### for migration file
+```
+php artisan plant:migrations
+```
+this create a migration file in you migrations folder with the name `[yyy-mm-dd]_create_all_tables.php`, then you can run the migration with `php artisan migrate`. that is all  :heavy_exclamation_mark:.
+
+ :pushpin: if you need, this package get the plantuml.jar who create a png diagram file, for use it, you must be in root project and execute:
 ```
 java -jar vendor/briandpando/plantumlgen/plantuml.jar plantuml.txt
 ```
