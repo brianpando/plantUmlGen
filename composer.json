@@ -13,7 +13,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "brianpando\\plantumlgen\\ServiceProvider"
+                "Brianpando\\Plantumlgen\\ServiceProvider"
             ]
         }
     }
