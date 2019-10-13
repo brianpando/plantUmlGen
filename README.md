@@ -1,10 +1,10 @@
 # plantUmlGen
 This is a first version of Laravel package to auto generate new models and migrations from PlantUml (http://plantuml.com) file.
 
-#Install
+# Install
 composer install brianpando/plantumlgen
 
-#how to Use
+# How to Use
 you need have the Plantuml file (plantuml.txt) in root project, this file must be contains the class diagram with a namespace models. For learn how to write a class diagram please visit http://plantuml.com/es/class-diagram.
 
 you can write your diagram using online editor https://www.planttext.com.
@@ -33,5 +33,5 @@ java -jar vendor/briandpando/plantumlgen/plantuml.jar plantuml.txt
 this create a png file of diagram class.
 
 
-#Next
+# Next
 In next versions the package will generate another layers of your code using the class or package diagram from PlantUML.
