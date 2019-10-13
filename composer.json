@@ -14,8 +14,13 @@
         "laravel": {
             "providers": [
                 "Brianpando\\Plantumlgen\\PlantServiceProvider"
-                
+
             ]
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Brianpando\\Plantumlgen\\": "src"
         }
     }
 }
