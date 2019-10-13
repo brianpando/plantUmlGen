@@ -13,9 +13,9 @@ class PlantServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
-        include __DIR__.'/routes/web.php';
-        $this->app->make('Brianpando\Plantumlgen\PlantController');
+        
+        //include __DIR__.'/routes/web.php';
+        //$this->app->make('Brianpando\Plantumlgen\PlantController');
     }
 
     /**
@@ -26,8 +26,8 @@ class PlantServiceProvider extends ServiceProvider
     public function boot(){
         if ($this->app->runningInConsole()) {
             $this->commands([
-                Brianpando\Plantumlgen\Commands\PlantMigrations::class,
-                Brianpando\Plantumlgen\Commands\PlantModels::class,
+                Commands\PlantMigrations::class,
+                Commands\PlantModels::class,
             ]);
         }
     }
