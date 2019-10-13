@@ -1,10 +1,10 @@
 {
     "name": "brianpando/plantumlgen",
-    "description": "package for code generate by plantUml tool",
+    "description": "package for code generate by plantUml Tool",
     "license": "proprietary",
     "authors": [
         {
-            "name": "Brian",
+            "name": "Brian Pando",
             "email": "unasbrian@gmail.com"
         }
     ],
