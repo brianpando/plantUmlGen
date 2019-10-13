@@ -31,6 +31,7 @@ class PlantServiceProvider extends ServiceProvider
             ]);
         }
     }
+    
     // public function boot(\Illuminate\Routing\Router $router) {
     //     $this->commands([
     //         \Vendor\plantumlgen\Commands\PlantMigrations::class,
