@@ -10,7 +10,7 @@ you need have the Plantuml file (**plantuml.txt**) in root project, this file mu
 
 you can write your diagram using online editor https://www.planttext.com.
 
-This is an diagram class example:
+This is an class diagram example:
 ```
 @startuml
 
