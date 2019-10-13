@@ -40,7 +40,7 @@ class PlantMigrations extends Command
     {
         try {
             //1. leer el contenido del archivo plan
-        $path=base_path()."/plantuml.txt";
+        $path=base_path()."/plantuml.pu";
         if(! File::exists($path) ) {
             $message = "File $path doesnt exist.";
             //throw new \Exception();

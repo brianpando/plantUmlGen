@@ -3,3 +3,21 @@ https://medium.com/@tabacitu/creating-laravel-5-packages-for-dummies-ec6a4ded2e9
 https://laraveldaily.com/how-to-create-a-laravel-5-package-in-10-easy-steps/
 
 https://packagist.org/packages/brianpando/plantumlgen
+
+
+para borrar tag:
+primer en remoto
+git push origin :tagname
+luego en local
+git tag --delete tagname
+
+ahora puedes volver a subir el tag con:
+ git add .; git commit -m 'first version'; git push
+ git tag -a 1.0.0 -m 'First Version'
+ git push --tags
+
+ the remove all tags in 
+ https://packagist.org/packages/brianpando/plantumlgen
+
+ and edit package for renew tags.
+
