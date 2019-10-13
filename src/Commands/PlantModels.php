@@ -1,6 +1,6 @@
 <?php
 
-namespaceVendor\plantumlgen\Commands;
+namespace Brianpando\Plantumlgen\Commands;
 
 use Illuminate\Console\Command;
 use File;
