@@ -3,7 +3,7 @@
 
 # Install
 ```
-composer install brianpando/plantumlgen
+composer require brianpando/plantumlgen
 ```
 # How to Use
 you need have the Plantuml plain file (**plantuml.pu**) in root project, this file must be contains the class diagram with a namespace models. For learn how to write a class diagram please visit http://plantuml.com/es/class-diagram.
