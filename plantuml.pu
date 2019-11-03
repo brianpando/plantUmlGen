@@ -1,0 +1,8 @@
+@startuml
+class models.Author{
+	name:string
+}
+class models.Book{
+title:string
+}
+@enduml

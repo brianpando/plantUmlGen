@@ -41,10 +41,15 @@ class PlantModels extends Command
         //1. leer el contenido del archivo plan
         $path=base_path()."/plantuml.pu";
         if(! File::exists($path) ) {
-            $message = "File $path doesnt exist.";
+            $message = "File $path doesnt exist. We will try to create it.";
             //throw new \Exception();
-            $this->line("<fg=black;bg=red>ERROR:</>".$message);
-            die();
+            $this->line("<fg=black;bg=yellow>Warning:</>".$message);
+            File::put($path,"@startuml\n@enduml");
+            if(! File::exists($path)){
+                $this->line("<fg=black;bg=yellow>ERROR:</>"."file $path couldn't be created.");
+                die();
+            }
+            
         }
         $content = File::get($path);
         //2. poner las clases en un array de objetos.
