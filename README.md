@@ -15,17 +15,17 @@ This is an class diagram example:
 @startuml
 
 class models.Author{
-    name string
-    lastname string
+    name:string
+    lastname:string
 }
 class models.Book{
-    title string
-    year int
-    edition string
-    publishing date
+    title:string
+    year:integer
+    edition:string
+    publishing:date
 }
 class models.Store{
-    address string
+    address:string
 }
 models.Book "1" *-- "1"models.Author
 models.Store "1" o--"*" models.Book
