@@ -15,6 +15,4 @@ jobs:
       with:
         php-version: 7.1
         extension-csv: mbstring
-
-    - name: Install dependencies
-      run: composer install --prefer-dist --no-progress --no-suggest
+    - run: composer install
