@@ -3,8 +3,7 @@ name: PHP Composer
 on: [push]
 
 jobs:
-  build:
-
+  test:
     runs-on: ubuntu-latest
 
     steps:
@@ -13,8 +12,10 @@ jobs:
     - name: Validate composer.json and composer.lock
       run: composer validate
 
-    - name: Install dependencies
-      run: composer install
+     - name: Setup PHP
+      with:
+        php-version: 7.1
+    - run: composer install
 
     - name: PHPUnit Tests
       run: vendor/bin/phpunit
