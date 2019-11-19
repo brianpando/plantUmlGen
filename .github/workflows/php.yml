@@ -1,18 +1,16 @@
-name: PHP Composer
+name: CI
 
 on: [push]
 
 jobs:
   test:
+    name: PHP Test on ${{ matrix.operating-system }}
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v1
 
-    - name: Validate composer.json and composer.lock
-      run: composer validate
-
-     - name: Setup PHP
+    - name: Setup PHP
       with:
         php-version: 7.1
     - run: composer install
