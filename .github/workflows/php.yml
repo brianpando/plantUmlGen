@@ -5,7 +5,7 @@ on: [push]
 jobs:
   test:
     name: PHP Test on ${{ matrix.operating-system }}
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.operating-system }}
      strategy:
       max-parallel: 2
       matrix:
