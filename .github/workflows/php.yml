@@ -4,12 +4,8 @@ on: [push]
 
 jobs:
   test:
-    name: PHP Test on ${{ matrix.operating-system }}
-    runs-on: ${{ matrix.operating-system }}
-     strategy:
-      max-parallel: 2
-      matrix:
-        operating-system: [ubuntu-latest, windows-latest]
+    name: PHP Test 
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
 
