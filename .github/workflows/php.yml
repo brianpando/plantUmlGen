@@ -6,7 +6,10 @@ jobs:
   test:
     name: PHP Test on ${{ matrix.operating-system }}
     runs-on: ubuntu-latest
-
+     strategy:
+      max-parallel: 2
+      matrix:
+        operating-system: [ubuntu-latest, windows-latest]
     steps:
     - uses: actions/checkout@v1
 
@@ -15,4 +18,4 @@ jobs:
       with:
         php-version: 7.1
         extension-csv: mbstring
-    - run: composer install
+    - run: composer clearcache
