@@ -28,6 +28,7 @@ class PlantServiceProvider extends ServiceProvider
             $this->commands([
                 Commands\PlantMigrations::class,
                 Commands\PlantModels::class,
+                Commands\PlantControllers::class,
             ]);
         }
     }

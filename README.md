@@ -55,7 +55,9 @@ this create a png file of diagram class.
 # If you are using Visual Studio Code
 Exist a extension for plantUML please Launch VS Code Quick Open (Ctrl + P) and type `ext install plantuml`, then install PlantUml ext. if you are using the local file plantuml.jar please you must have installed Java and Graphviz, for generate preview screen in VS. for example in Mac `brew install graphviz`.
 
-Then you 
+# Testing
+Exist a couple of PHpUnit components, for using in package vendor/bin/phpunit tests/CreateControllersTest.php 
 
 # Next
 In next versions the package will generate another layers of your code using the class or package diagram from PlantUML.
+

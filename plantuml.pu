@@ -1,8 +1,10 @@
 @startuml
-class models.Author{
-	name:string
+class controllers.IndexController{
+	list()
+	store()
 }
-class models.Book{
-title:string
+class controllers.BookController{
+	list()
+	store()
 }
 @enduml
