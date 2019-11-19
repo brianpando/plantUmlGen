@@ -15,6 +15,5 @@ jobs:
         php-version: 7.1
         extension-csv: mbstring
     - run: composer clearcache
-    - run: composer install
     - name: PHPUnit Tests
       run: vendor/bin/phpunit
