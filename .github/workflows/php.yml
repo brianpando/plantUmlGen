@@ -9,12 +9,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-
+    with:
+        fetch-depth: 1
     - name: Setup PHP
+    uses: shivammathur/setup-php@1.1.1
       with:
         php-version: 7.1
     - run: composer install
-
-    - name: PHPUnit Tests
-      run: vendor/bin/phpunit
-      shell: bash
