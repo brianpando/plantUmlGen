@@ -6,7 +6,7 @@ class Migration extends PlantFile{
 
 
     public function __construct($path=null){
-        parent:__construct($path);
+        parent::__construct($path);
     }
 
     public function read_classes($plant_content){
