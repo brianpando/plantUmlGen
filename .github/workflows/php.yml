@@ -10,8 +10,11 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
-    - name: Validate composer.json and composer.lock
-      run: composer validate
+    - name: Setup PHP
+      uses: shivammathur/setup-php@1.1.1
+      with:
+        php-version: 7.1
+        extension-csv: mbstring
 
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress --no-suggest
