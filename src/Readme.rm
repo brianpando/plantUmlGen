@@ -21,3 +21,6 @@ ahora puedes volver a subir el tag con:
 
  and edit package for renew tags.
 
+ for update single package
+ composer.phar require doctrine/doctrine-fixtures-bundle:2.1.*@dev
+

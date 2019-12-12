@@ -52,6 +52,12 @@ java -jar vendor/briandpando/plantumlgen/plantuml.jar plantuml.pu
 ```
 this create a png file of diagram class.
 
+### for controllers
+```
+php artisan plant:controllers
+```
+This create the controller in your app/controllers folder, for this you should create in classes using controller namespace in your class diagram. If controller exists, it only add new methods.
+
 # If you are using Visual Studio Code
 Exist a extension for plantUML please Launch VS Code Quick Open (Ctrl + P) and type `ext install plantuml`, then install PlantUml ext. if you are using the local file plantuml.jar please you must have installed Java and Graphviz, for generate preview screen in VS. for example in Mac `brew install graphviz`.
 
