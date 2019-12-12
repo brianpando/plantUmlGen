@@ -41,6 +41,7 @@ php artisan plant:models
 This create a models folder in your folder app/, then create each class like a model eloquent including the relationship. please be careful linking with the right relationship in your diagram.
 
 ### for migration file
+=> You should have a database created.
 ```
 php artisan plant:migrations
 ```

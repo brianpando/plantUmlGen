@@ -1,8 +1,47 @@
 @startuml
-class models.Author{
-	name:string
+
+Class models.Driver{
+String license
+String dni
+String name
 }
-class models.Book{
-title:string
+
+Class models.Vehicle{
+int id
+String plate
+String brand
+String model
+Date dateFabrication
+int numSeats
+int numWheals
 }
+
+Class models.Trip{
+Date date
+String departure
+String arrive
+}
+
+Class models.Passenger{
+String dni
+String name
+String lastname
+}
+
+models.Trip "*" o-- "*" models.Passenger
+models.Trip "*" *-- "1" models.Driver
+models.Trip "*" *-- "1" models.Vehicle
+
+Class controllers.DriverController{
+	list()
+	store()
+	delete()
+}
+
+Class controllers.TripController{
+	list()
+	store()
+	delete()
+}
+
 @enduml
