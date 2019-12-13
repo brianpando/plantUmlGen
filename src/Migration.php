@@ -57,7 +57,7 @@ class Migration extends PlantFile{
         preg_match_all($pattern,$class_content,$clzz);
         $class_name=$clzz[1][0];
         $class_properties=$clzz[2][0];
-        $pattern_properties="/(\w+:*\w+)\n/";
+        $pattern_properties="/(\w+:*\w+)\s*/";
         preg_match_all($pattern_properties,$class_properties,$props);    
         $fields = $props[1];
         return (object)[
