@@ -27,8 +27,8 @@ class models.Book{
 class models.Store{
     address:string
 }
-models.Book "1" *-- "1"models.Author
-models.Store "1" o--"*" models.Book
+models.Book"1"*--"1"models.Author
+models.Store"1"o--"*"models.Book
 
 @enduml
 ```
