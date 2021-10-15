@@ -44,7 +44,7 @@ class ControllerGen extends PlantFile{
         }else{
             //4. crear un archivo de la clase y escribir el codigo de clase model.
             $controller_content=$this->controller_content($class_data->class_name,$class_data->methods );
-            $filename=$class_data->class_name.".php";
+            $filename=$class_data->class_name. "Controller" .".php";
             $filepath=$this->controller_path."/$filename";
             File::put($filepath,$controller_content);
             if( File::exists($filepath) ) return $filepath;
@@ -93,16 +93,49 @@ class ControllerGen extends PlantFile{
     }
 
     function controller_content($class_name,$methods ){
+        $ControllerName = $class_name . "Controller";
         $content ="<?php\n".
         "namespace App\Http\Controllers;\n".
         "use Illuminate\Http\Request;\n".
+        "use App\Models\\" . $class_name . ";\n".
         "\n".
-        "class $class_name extends Controller{\n\n";
+        "class $ControllerName extends Controller{\n\n";
 
         foreach( $methods as $method ){
-            $content .= "\tpublic function $method(){\n".
-                "\t\t//your code here\n".
-                "\t}\n";
+            switch ($method) {
+                case 'store':
+                    $content .= "\tpublic function $method(Request $"."request){\n".
+                        "\t\t$"."params = $"."request->all();\n".
+                        "\t\t$"."query = ".$class_name."::post($"."params);\n".
+                        "\t\treturn $"."query;\n".
+                        "\t}\n\n";
+                    break;
+                case 'list':
+                    $content .= "\tpublic function $method(){\n".
+                                "\t\t$"."query = ".$class_name."::select('*')->whereNull('deleted_at')->get();\n".
+                                "\t\treturn $"."query;\n".
+                                "\t}\n\n";
+                    break;
+                case 'update':
+                    $content .= "\tpublic function $method(Request $"."request, $"."id){\n".
+                        "\t\t$"."params = $"."request->all();\n".
+                        "\t\t$"."query = ".$class_name."::where('id', $"."id)->update($"."params);\n".
+                        "\t\treturn $"."query;\n".
+                        "\t}\n\n";
+                    break;
+                case 'delete':
+                    $content .= "\tpublic function $method($"."id){\n".
+                        "\t\t$"."query = ".$class_name."::find($"."id);\n".
+                        "\t\t$"."query->delete();\n".
+                        "\t\treturn $"."query;\n".
+                        "\t}\n\n";
+                    break;
+                default:
+                    $content .= "\tpublic function $method(){\n".
+                                "\t\t//your code here\n".
+                                "\t}\n\n";
+                    break;
+            }
         }
         $content.="}";
         return  $content;
