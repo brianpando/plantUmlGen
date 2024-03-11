@@ -29,6 +29,7 @@ class PlantServiceProvider extends ServiceProvider
                 Commands\PlantMigrations::class,
                 Commands\PlantModels::class,
                 Commands\PlantControllers::class,
+                Commands\GenerateUmlFromMigrations::class,
             ]);
         }
     }
