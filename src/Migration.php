@@ -32,6 +32,7 @@ class Migration extends PlantFile{
     public function create_migration_file($class_content){
         $migration_path=$this->base_path."/database/migrations";
         $class_data=$this->get_class_data($class_content);
+        //dd($class_data);
         $mode="create";
         if( $migration_files = $this->get_migrations_of($class_data->table_name) ){
                 $class_data->fields=$this->extract_new_fields($migration_files,$class_data->table_name, $class_data->fields);
@@ -60,6 +61,7 @@ class Migration extends PlantFile{
         $pattern_properties="/(\w+:*\w+)\s*/";
         preg_match_all($pattern_properties,$class_properties,$props);    
         $fields = $props[1];
+        //dd($fields);
         return (object)[
             'class_name'=>$class_name,
             'table_name'=>strtolower($class_name)."s",
@@ -111,6 +113,7 @@ class Migration extends PlantFile{
 
         foreach($fields as $field){
                 preg_match("/(\w+):\s*(\w+)/",$field, $fieldparts);
+                //dd($fieldparts);
                 if( count($fieldparts)!=3) {
                     throw new \Exception("class $table_name => field '$field' : type is undefined");  
                 }

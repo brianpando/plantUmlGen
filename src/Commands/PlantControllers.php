@@ -61,8 +61,18 @@ class PlantControllers extends Command
         $this->line(count($classes)." classes found:");
         //3. recorrer la lista de clases.
         $contenido_api = file_get_contents($controller_gen->get_base_path(). "/routes/api.php");
-        dd($classes);
+
         foreach($classes as $class_content){
+            $controlador_nombre = $class_content[1];
+            $metodos_raw = $class_content[2];
+            // Parsear los métodos y generar código de ruta
+            $codigo_ruta = $this->parsearMetodos($controlador_nombre, $metodos_raw);
+
+            // Agregar la dependencia del controlador
+            $contenido_api = $this->insertarDependencia($contenido_api, $controlador_nombre);
+
+            // Insertar el código de ruta después de la dependencia
+            $contenido_api = $this->insertarCodigoRuta($contenido_api, $codigo_ruta);
              if( $filename = $controller_gen->create_controller_file($class_content) ){
                  $this->line("<info>Created Conntroller:</info> $filename");
              }else{
