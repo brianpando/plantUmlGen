@@ -13,7 +13,7 @@ class PlantControllers extends Command
      *
      * @var string
      */
-    protected $signature = 'plant:controllers';
+    protected $signature = 'plant:controllers --route';
 
     /**
      * The console command description.
@@ -59,7 +59,9 @@ class PlantControllers extends Command
                 die($message);
             }
         $this->line(count($classes)." classes found:");
-         //3. recorrer la lista de clases.
+        //3. recorrer la lista de clases.
+        $contenido_api = file_get_contents($controller_gen->get_base_path(). "/routes/api.php");
+        dd($classes);
         foreach($classes as $class_content){
              if( $filename = $controller_gen->create_controller_file($class_content) ){
                  $this->line("<info>Created Conntroller:</info> $filename");
@@ -71,5 +73,65 @@ class PlantControllers extends Command
             $this->line("<fg=black;bg=red>ERROR:</> ".$e->getMessage());
         }
         
+    }
+
+    function parsearMetodos($controlador_nombre, $metodos_raw) {
+        // Divide los métodos por líneas
+        $lineas_metodos = explode("\n", $metodos_raw);
+
+        // Inicializar código de ruta
+        $codigo_ruta = "";
+
+        // Iterar sobre los métodos
+        foreach ($lineas_metodos as $linea) {
+            // Eliminar espacios en blanco al inicio y final de la línea
+            $linea = trim($linea);
+
+            // Verificar si la línea es un método
+            if ($linea !== '') {
+                // Extraer el nombre del método
+                preg_match('/(\w+)\(\)/', $linea, $matches);
+                $nombre_metodo = $matches[1] ?? '';
+
+                // Verificar si el método es "resource"
+                if ($nombre_metodo === 'resource') {
+                    // Generar código para Route::resource
+                    $codigo_ruta .= "Route::resource('/{$controlador_nombre}', {$controlador_nombre}Controller::class);\n";
+                } else {
+                    // Generar código para otro tipo de método
+                    $codigo_ruta .= "Route::post('/{$controlador_nombre}/{$nombre_metodo}', '{$controlador_nombre}Controller@{$nombre_metodo}');\n";
+                }
+            }
+        }
+
+        return $codigo_ruta;
+    }
+
+    // Función para insertar la dependencia del controlador en el archivo api.php
+    function insertarDependencia($contenido_api, $controlador_nombre) {
+        // Verificar si la dependencia ya está agregada
+        $dependencia = "use App\\Http\\Controllers\\{$controlador_nombre}Controller;";
+        if (strpos($contenido_api, $dependencia) === false) {
+            // Patrón para encontrar el espacio donde insertar la dependencia
+            $patron_espacio = '/use Illuminate\\Support\\Facades\\Route;/';
+
+            // Insertar la dependencia después de la línea con "use Illuminate\\Support\\Facades\\Route;"
+            $contenido_api = str_replace($patron_espacio, "$0\n\n{$dependencia}\n", $contenido_api);
+        }
+
+        return $contenido_api;
+    }
+
+    // Función para insertar el código de ruta después de la dependencia del controlador
+    function insertarCodigoRuta($contenido_api, $codigo_ruta) {
+        // Patrón para encontrar la dependencia del controlador
+        $patron_dependencia = "/use App\\\\Http\\\\Controllers\\\\(\w+)Controller;/";
+
+        // Encontrar la última dependencia del controlador
+        preg_match_all($patron_dependencia, $contenido_api, $matches);
+        $ultima_dependencia = end($matches[0]);
+
+        // Insertar el código de ruta después de la última dependencia
+        return str_replace($ultima_dependencia, "{$ultima_dependencia}\n\n{$codigo_ruta}", $contenido_api);
     }
 }

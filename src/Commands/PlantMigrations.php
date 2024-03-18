@@ -62,11 +62,11 @@ class PlantMigrations extends Command
             }
         $this->line(count($classes)." classes found:");
          //3. recorrer la lista de clases.
-         foreach($classes as $class_content){
-             if( $filename = $migration->create_migration_file($class_content) ){
-                 $this->line("<info>Created Migration:</info> $filename");
-             }else{
-                 $this->line("<warning>Created Migration: No need migration.</warning>");
+         foreach ($classes as $class_content) {
+            if ($filename = $migration->create_migration_file($class_content)) {
+                $this->line("<info>Created Migration:</info> $filename");
+            } else {
+                $this->line("<warning>Created Migration: No need migration.</warning>");
             }    
         }
         } catch (\Exception $e) {
