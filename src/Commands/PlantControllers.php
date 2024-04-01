@@ -53,6 +53,7 @@ class PlantControllers extends Command
             $content = File::get($path);
             //2. poner las clases en un array de objetos.
             $classes=$controller_gen->read_classes($content);
+
             if(count($classes)<1 ){
                 $message="None class found";
                 $this->line("<fg=black;bg=red>ERROR:</>".$message);
@@ -67,15 +68,14 @@ class PlantControllers extends Command
             $metodos_raw = $class_content[2];
             // Parsear los métodos y generar código de ruta
             $codigo_ruta = $this->parsearMetodos($controlador_nombre, $metodos_raw);
-
             // Agregar la dependencia del controlador
             $contenido_api = $this->insertarDependencia($contenido_api, $controlador_nombre);
-
             // Insertar el código de ruta después de la dependencia
             $contenido_api = $this->insertarCodigoRuta($contenido_api, $codigo_ruta);
-             if( $filename = $controller_gen->create_controller_file($class_content) ){
+            
+            if ( $filename = $controller_gen->create_controller_file($class_content) ){
                  $this->line("<info>Created Conntroller:</info> $filename");
-             }else{
+            } else {
                  $this->line("<warning>Created Controller: No need migration.</warning>");
             }    
         }
