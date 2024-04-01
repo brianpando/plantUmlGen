@@ -18,8 +18,7 @@ class ControllerGen extends PlantFile {
     public function read_classes($plant_content){
         $class_pattern = "/class controllers\.(\w+)\s*\{\s*([^\}]+)\}/";
         preg_match_all($class_pattern,$plant_content,$classes,PREG_SET_ORDER);
-        //dd($classes[2]);
-        $classes=$classes[0];
+
         return $classes;
     }
 
@@ -42,13 +41,13 @@ class ControllerGen extends PlantFile {
     public function create_controller_file($class_content){
         $class_data=$this->get_class_data($class_content);
         $mode="create";
-        if(  $file = $this->controller_exists($class_data->class_name) ){
-                $this->add_new_methods($file,$class_data->methods,$class_data->class_name);
-                $mode="update";
-        }else{
+        if ($file = $this->controller_exists($class_data->class_name)) {
+            $this->add_new_methods($file, $class_data->methods, $class_data->class_name);
+            $mode = "update";
+        } else {
             //4. crear un archivo de la clase y escribir el codigo de clase model.
-            $controller_content=$this->controller_content($class_data->class_name,$class_data->methods );
-            $filename=$class_data->class_name.".php";
+            $controller_content = $this->controller_content($class_data->class_name,$class_data->methods );
+            $filename=$class_data->class_name . ".php";
             $filepath=$this->controller_path."/$filename";
             File::put($filepath,$controller_content);
             if( File::exists($filepath) ) return $filepath;
@@ -91,26 +90,24 @@ class ControllerGen extends PlantFile {
         File::put($this->controller_path."/$filename", $new_content);
     }
 
-    public function get_class_data($class_content){
-        $pattern="/class controllers.(\w*)\{\s*([\w*\(\)\s]*)\}/";
-        preg_match_all($pattern,$class_content,$clzz);
-       
+    public function get_class_data($class_content) {
+        $pattern = "/class controllers.(\w*)\{\s*([\w*\(\)\s]*)\}/";
+        preg_match_all($pattern,$class_content[0],$clzz);
         $class_name=$clzz[1][0];
         $class_methods=$clzz[2][0];
         $pattern_methods="/(\w+)\(\)\n/";
-        preg_match_all($pattern_methods,$class_methods,$methods);    
-         
+        preg_match_all($pattern_methods,$class_methods,$methods);
+
         $methods = $methods[1];
         return (object)[
-            'class_name'=>$class_name,
-            'methods'=>$methods,
+            'class_name' => $class_name . 'Controller',
+            'methods' => $methods,
         ];
-        
     }
 
     public function controller_exists($class_name){
-        $file=$class_name.".php"; 
-        if ( ! File::exists($this->controller_path."/".$file) ) $file=false;
+        $file = $class_name . ".php"; 
+        if ( ! File::exists($this->controller_path . "/" . $file) ) $file=false;
         return $file;
     }
 
