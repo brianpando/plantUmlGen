@@ -108,7 +108,7 @@ class ControllerGen extends PlantFile {
         $content ="<?php\n".
         "\nnamespace App\Http\Controllers;\n\n".
         "use Illuminate\Http\Request;\n".
-        "use Illuminate\Http\Controllers\Controller;\n".
+        "use App\Http\Controllers\Controller;\n".
         "use Illuminate\Http\JsonResponse;\n".
         "use App\Http\Requests\\" . $class_name . " as " . $class_name . "Request;\n".
         "\n".
