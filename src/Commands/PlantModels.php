@@ -58,7 +58,6 @@ class PlantModels extends Command
         $class_pattern="/class models.(\w*)\{\s*([\w*:\w*\s]*)\}/";
         $model_path=base_path()."/app/Models";
         preg_match_all($class_pattern,$content,$classes);
-        //dd($classes);
         if(count($classes)<=1 ){ 
             $message="None class found";
             $this->line("<fg=black;bg=red>ERROR:</>".$message);
@@ -83,7 +82,6 @@ class PlantModels extends Command
         $class_pattern = "/class models.\w*\{\s*[\w*:\w*\s]*\}/";
         preg_match_all($class_pattern, $content, $classes);
         $classes_attr = $classes[0];
-        //dd($classes_attr);
         $classes_attributes = $this->retrieveClassesAttributes($classes_attr);
 
         foreach ($classes_attributes as $classes_attribute) {
@@ -104,20 +102,20 @@ class PlantModels extends Command
             File::put($model_path."/$class_name.php", $class_attribute_content);
         }
         //5. poner las relaciones en una lista.
-        $relationship_pattern = "/models.\w*\s*\"[\W\w]{1}\"\s*[\W|\w]{1}--\s*\"[\W|\w]{1}\"\s*models.\w*/";
+        $relationship_pattern = "/models.\w*\s*\"[\W\w]{1}\"\s*[\W|\w]?--\s*[\W|\w]?\"[\W|\w]{1}\"\s*models.\w*/";
         preg_match_all($relationship_pattern,$content,$relationships);
         
         //6. recorrer la lsita de relaciones
         foreach($relationships[0] as $relationship){
-            $pattern = "/models.(\w*)\s*\"([\W|\w]{1})\"\s*([\W|\w]{1})--\s*\"([\W|\w]{1})\"\s*models.(\w*)/";
+            //$pattern = "/models.(\w*)\s*\"([\W|\w]{1})\"\s*([\W|\w]{1})--\s*\"([\W|\w]{1})\"\s*models.(\w*)/";
+            $pattern = "/models.(\w*)\s*\"([\W|\w]{1})\"\s*([\W|\w]?)--\s*([\W|\w]?)\"([\W|\w]{1})\"\s*models.(\w*)/";
             preg_match($pattern,$relationship, $rel );
+            dump($rel);
             $class1=$rel[1];
             $cardinality1=$rel[2];
-            $linktype=$rel[3]; //composition (*) o agreggation (o)
-            $cardinality2=$rel[4];
-            $class2=$rel[5];
+            $cardinality2=$rel[5];
+            $class2=$rel[6];
             $cardinality = $cardinality1.$cardinality2;
-            
             //7. editar cada clase y agregar la relacion eloquent.
             $class1_content = File::get($model_path."/$class1.php");
             $class2_content = File::get($model_path."/$class2.php");
@@ -142,11 +140,25 @@ class PlantModels extends Command
             if( !is_null($relationshipcode1) ){
                 $class1_content=preg_replace("/\}$/","$relationshipcode1\n}",$class1_content);
                 $class2_content=preg_replace("/\}$/","$relationshipcode2\n}",$class2_content);
-                //dd($class1_content);
                 File::put($model_path."/$class1.php",$class1_content);
                 File::put($model_path."/$class2.php",$class2_content);
             }else{
                 $this->line("Relationship undefined.");
+            }
+
+            $content_file = file_get_contents($model_path."/$class2.php");
+            if ($rel[3] == '*') {
+                $relation = "\n" . $tab . "public function " . strtolower($class1) . "()\n" . $tab . "{\n" . $tab . $tab . "return" . ' $this->belongsTo' . '(\'App\\Models\\' . $class1 . "');\n" . $tab . "}";
+                if (strpos($content_file, $relation) === false) {
+                    $class2_content=preg_replace("/\}$/","$relation\n}",$class2_content);
+                    File::put($model_path."/$class2.php",$class2_content);
+                }
+            } elseif ($rel[4] == '*') {
+                $relation = "\n" . $tab . "public function " . strtolower($class2) . "()\n" . $tab . "{\n" . $tab . $tab . "return" . ' $this->belongsTo' . '(\'App\\Models\\' . $class2 . "');\n" . $tab . "}";
+                if (strpos($content_file, $relation) === false) {
+                    $class1_content=preg_replace("/\}$/","$relation\n}",$class1_content);
+                    File::put($model_path."/$class1.php",$class1_content);
+                }
             }
         }
         
@@ -163,7 +175,6 @@ class PlantModels extends Command
             preg_match_all($attributes_pattern,$class,$clzz);
             $class_name=$clzz[1][0];
             $class_properties=$clzz[2][0];
-            //dd($class_properties);
             $pattern_properties="/(\w+:*\w+)\s*/";
             preg_match_all($pattern_properties,$class_properties,$props);
             $fields = $props[1];
