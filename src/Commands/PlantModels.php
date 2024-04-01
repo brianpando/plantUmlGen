@@ -110,7 +110,6 @@ class PlantModels extends Command
             //$pattern = "/models.(\w*)\s*\"([\W|\w]{1})\"\s*([\W|\w]{1})--\s*\"([\W|\w]{1})\"\s*models.(\w*)/";
             $pattern = "/models.(\w*)\s*\"([\W|\w]{1})\"\s*([\W|\w]?)--\s*([\W|\w]?)\"([\W|\w]{1})\"\s*models.(\w*)/";
             preg_match($pattern,$relationship, $rel );
-            dump($rel);
             $class1=$rel[1];
             $cardinality1=$rel[2];
             $cardinality2=$rel[5];
