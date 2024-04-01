@@ -40,7 +40,6 @@ class ControllerGen extends PlantFile {
 
     public function create_controller_file($class_content){
         $class_data=$this->get_class_data($class_content);
-        //dd($class_data);
         $mode="create";
         if ($file = $this->controller_exists($class_data->class_name)) {
             $this->add_new_methods($file, $class_data->methods, $class_data->class_name);
@@ -49,6 +48,7 @@ class ControllerGen extends PlantFile {
             //4. crear un archivo de la clase y escribir el codigo de clase model.
             $controller_content = $this->controller_content($class_data->class_name,$class_data->methods );
             $filename=$class_data->class_name . ".php";
+           
             $filepath=$this->controller_path."/$filename";
             File::put($filepath,$controller_content);
             if( File::exists($filepath) ) return $filepath;
@@ -109,9 +109,9 @@ class ControllerGen extends PlantFile {
         "\nnamespace App\Http\Controllers;\n\n".
         "use Illuminate\Http\Request;\n".
         "use Illuminate\Http\JsonResponse;\n".
-        "use App\Http\Request\\" . $class_name . " as " . $class_name . "Request;\n".
+        "use App\Http\Requests\\" . $class_name . " as " . $class_name . "Request;\n".
         "\n".
-        "class " . $class_name . "Controller extends Controller\n{\n";
+        "class " . $class_name . " extends Controller\n{\n";
 
         foreach( $methods as $method ){
             if (strtolower($method) == 'resource') {
