@@ -40,6 +40,7 @@ class ControllerGen extends PlantFile {
 
     public function create_controller_file($class_content){
         $class_data=$this->get_class_data($class_content);
+        //dd($class_data);
         $mode="create";
         if ($file = $this->controller_exists($class_data->class_name)) {
             $this->add_new_methods($file, $class_data->methods, $class_data->class_name);
@@ -53,19 +54,11 @@ class ControllerGen extends PlantFile {
             if( File::exists($filepath) ) return $filepath;
             else throw new \Exception("file $filename. creation failed.");
         }
-        //$this->add_routes($class_data->class_name,$class_data->methods);
         return false;
     }
 
-    public function add_routes($class_name, $methods){
-        $new_content = "<?php\n\n".
-        "use Illuminate\Support\Facades\Route;\n\n";
-        foreach ($methods as $key => $method) {
-            if (strtolower($method) == 'resource') {
-                $new_content .= "Route::resource('".$class_name."', ".ucfirst($class_name)."Controller::class);\n";
-            }
-        }
-        file_put_contents($this->route_path."/api.php", $new_content . PHP_EOL, FILE_APPEND);
+    public function add_routes($new_content){
+        file_put_contents($this->route_path."/api.php", $new_content);
     }
 
 
