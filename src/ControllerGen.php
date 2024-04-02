@@ -88,7 +88,7 @@ class ControllerGen extends PlantFile {
         preg_match_all($pattern,$class_content[0],$clzz);
         $class_name=$clzz[1][0];
         $class_methods=$clzz[2][0];
-        $pattern_methods="/(\w+)\(\)\n/";
+        $pattern_methods="/(\w+)\(\)/";
         preg_match_all($pattern_methods,$class_methods,$methods);
 
         $methods = $methods[1];
@@ -104,7 +104,7 @@ class ControllerGen extends PlantFile {
         return $file;
     }
 
-    function controller_content($class_name,$methods ){
+    function controller_content($class_name, $methods){
         $content ="<?php\n".
         "\nnamespace App\Http\Controllers;\n\n".
         "use Illuminate\Http\Request;\n".
