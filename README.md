@@ -59,11 +59,23 @@ php artisan plant:controllers
 ```
 This create the controller in your app/controllers folder, for this you should create in classes using controller namespace in your class diagram. If controller exists, it only add new methods.
 
+### Generate a UML Diagram from Migrations
+Simply execute the following command in your terminal:
+```
+php artisan plant:generate
+```
+This will search for all migrations in your Laravel project, analyze the table and column definitions, and generate a file named database_diagram.puml in the root of your project.
+
+New Feature:
+The new functionality allows automatically generating UML diagrams from database migrations. This includes mapping the attributes and relationships of the tables defined in the migrations. This feature is especially useful for quickly understanding the database structure and facilitating project documentation, providing a clear and visually understandable overview of the database architecture.
+
 # If you are using Visual Studio Code
 Exist a extension for plantUML please Launch VS Code Quick Open (Ctrl + P) and type `ext install plantuml`, then install PlantUml ext. if you are using the local file plantuml.jar please you must have installed Java and Graphviz, for generate preview screen in VS. for example in Mac `brew install graphviz`.
 
+
 # Testing
 Exist a couple of PHpUnit components, for using in package vendor/bin/phpunit tests/CreateControllersTest.php 
+
 
 # Next
 In next versions the package will generate another layers of your code using the class or package diagram from PlantUML.
