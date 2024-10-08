@@ -1,0 +1,15 @@
+@startuml
+
+
+node PC_Developer{
+component LaravelProject{
+  component vendor_Directory{
+    component plantUmlGenPackage
+  }
+  
+  file classDiagram.plantuml
+}
+}
+
+plantUmlGenPackage --classDiagram.plantuml
+@enduml

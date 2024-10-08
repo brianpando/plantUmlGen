@@ -16,7 +16,7 @@ class ControllerGen extends PlantFile {
     }
 
     public function read_classes($plant_content){
-        $class_pattern = "/class controllers\.(\w+)\s*\{\s*([^\}]+)\}/";
+        $class_pattern = "/class controllers\.(\w+)\s*\{\s*([^\}]+)\}/i";
         preg_match_all($class_pattern,$plant_content,$classes,PREG_SET_ORDER);
 
         return $classes;
@@ -84,7 +84,7 @@ class ControllerGen extends PlantFile {
     }
 
     public function get_class_data($class_content) {
-        $pattern = "/class controllers.(\w*)\{\s*([\w*\(\)\s]*)\}/";
+        $pattern = "/class controllers.(\w*)\{\s*([\w*\(\)\s]*)\}/i";
         preg_match_all($pattern,$class_content[0],$clzz);
         $class_name=$clzz[1][0];
         $class_methods=$clzz[2][0];

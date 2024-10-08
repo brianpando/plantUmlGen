@@ -10,7 +10,7 @@ class Migration extends PlantFile{
     }
 
     public function read_classes($plant_content){
-        $class_pattern = "/class models.\w*\{\s*[\w*:\w*\s]*\}/";
+        $class_pattern = "/class models.\w*\{\s*[\w*:\w*\s]*\}/i";
          preg_match_all($class_pattern,$plant_content,$classes);
          $classes=$classes[0];
          return $classes;
@@ -54,7 +54,7 @@ class Migration extends PlantFile{
     }
 
     public function get_class_data($class_content){
-        $pattern="/class models.(\w*)\{\s*([\w*:\w*\s]*)\}/";
+        $pattern="/class models.(\w*)\{\s*([\w*:\w*\s]*)\}/i";
         preg_match_all($pattern,$class_content,$clzz);
         $class_name=$clzz[1][0];
         $class_properties=$clzz[2][0];
@@ -112,7 +112,7 @@ class Migration extends PlantFile{
         }
 
         foreach($fields as $field){
-                preg_match("/(\w+):\s*(\w+)/",$field, $fieldparts);
+                preg_match("/(\w+)\s*(\w+)/",$field, $fieldparts);
                 //dd($fieldparts);
                 if( count($fieldparts)!=3) {
                     throw new \Exception("class $table_name => field '$field' : type is undefined");  
@@ -140,7 +140,7 @@ class Migration extends PlantFile{
             
             /*  Falta crear el cambio de tipo de dato */
             foreach($fields as $i => $field){
-                $t=explode(":",$field);
+                $t=explode(" ",$field);
                 $field_name=$t[0];
                 $field_type=$t[1];
                 if( preg_match_all("/('".$field_name."')/",$table_content)  ){

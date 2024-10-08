@@ -54,8 +54,8 @@ class PlantModels extends Command
         }
         $content = File::get($path);
         //2. poner las clases en un array de objetos.
-        $class_pattern = "/class models.(\w*)\{/";
-        $class_pattern="/class models.(\w*)\{\s*([\w*:\w*\s]*)\}/";
+        $class_pattern = "/class models.(\w*)\{/i";
+        $class_pattern="/class models.(\w*)\{\s*([\w*:\w*\s]*)\}/i";
         $model_path=base_path()."/app/Models";
         preg_match_all($class_pattern,$content,$classes);
         if(count($classes)<=1 ){ 
